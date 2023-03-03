@@ -15,7 +15,7 @@ android {
         versionCode = ProjectConfig.versionCode
         versionName = ProjectConfig.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -23,7 +23,7 @@ android {
 
     buildTypes {
         getByName("release") {
-            minifyEnabled = false
+            isMinifyEnabled = false
             proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
@@ -51,6 +51,8 @@ android {
 }
 
 dependencies {
+
+    implementation(project(Modules.coreUi))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)

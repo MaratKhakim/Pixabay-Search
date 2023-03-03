@@ -1,4 +1,4 @@
-package me.mrtkhkm.pixabaysearch.ui.theme
+package me.mrtkhkm.ui
 
 import androidx.compose.ui.graphics.Color
 

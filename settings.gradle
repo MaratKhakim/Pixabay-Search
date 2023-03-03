@@ -14,3 +14,12 @@ dependencyResolutionManagement {
 }
 rootProject.name = "PixabaySearch"
 include ':app'
+include ':core'
+include ':core:ui'
+include ':core:common'
+include ':search'
+include ':search:search-presentation'
+include ':search:search-domain'
+include ':search:search-data'
+include ':detail'
+include ':detail:detail-presentation'
