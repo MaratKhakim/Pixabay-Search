@@ -53,6 +53,7 @@ android {
 dependencies {
 
     implementation(project(Modules.coreUi))
+    implementation(project(Modules.searchPresentation))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
