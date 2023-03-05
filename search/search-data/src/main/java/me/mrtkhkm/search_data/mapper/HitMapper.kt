@@ -8,6 +8,7 @@ fun HitDto.toHit(): Hit {
         id = this.id,
         imageUrl = this.imageUrl.orEmpty(),
         largeImageUrl = this.largeImageUrl.orEmpty(),
+        webformatURL = this.webformatURL,
         user = this.user,
         likes = this.likes,
         downloads = this.downloads,

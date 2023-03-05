@@ -5,6 +5,7 @@ data class HitDto(
     val previewUrl: String?,
     val imageUrl: String?,
     val largeImageUrl: String?,
+    val webformatURL: String,
     val userId: Int,
     val user: String,
     val likes: Int,

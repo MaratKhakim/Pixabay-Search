@@ -7,11 +7,10 @@ class SearchImageUseCase(
     private val searchRepository: SearchRepository
 ) {
     suspend operator fun invoke(
-        key: String,
         query: String,
         page: Int,
         perPage: Int
     ): Result<List<Hit>> {
-        return searchRepository.searchImage(key, query, page, perPage)
+        return searchRepository.searchImage(query, page, perPage)
     }
 }

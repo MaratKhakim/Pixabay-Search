@@ -21,9 +21,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", '"https://pixabay.com/"'
+            buildConfigField "String", "PIXABAY_API_KEY", '"YOUR_API_KEY"'
         }
         debug {
             buildConfigField "String", "BASE_URL", '"https://pixabay.com/"'
+            buildConfigField "String", "PIXABAY_API_KEY", '"YOUR_API_KEY"'
         }
     }
     compileOptions {

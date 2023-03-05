@@ -4,6 +4,7 @@ data class Hit(
     val id: Int = 0,
     val imageUrl: String = "",
     val largeImageUrl: String = "",
+    val webformatURL: String = "",
     val user: String = "",
     val likes: Int = 0,
     val downloads: Int = 0,
