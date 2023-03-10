@@ -1,28 +1,28 @@
 package me.mrtkhkm.search_data.repository
 
+import androidx.paging.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import me.mrtkhkm.search_data.BuildConfig
-import me.mrtkhkm.search_data.mapper.toHit
+import me.mrtkhkm.search_data.local.ImagesDatabase
+import me.mrtkhkm.search_data.mapper.asExternalModel
+import me.mrtkhkm.search_data.mediator.SearchImagesRemoteMediator
 import me.mrtkhkm.search_data.remote.SearchApi
 import me.mrtkhkm.search_domain.model.Hit
 import me.mrtkhkm.search_domain.repository.SearchRepository
+import javax.inject.Inject
 
-class SearchRepositoryImpl(
-    private val searchApi: SearchApi
+@OptIn(ExperimentalPagingApi::class)
+class SearchRepositoryImpl @Inject constructor(
+    private val searchApi: SearchApi,
+    private val imagesDatabase: ImagesDatabase,
 ) : SearchRepository {
-    override suspend fun searchImage(
+    override fun searchImage(
         query: String,
-        page: Int,
-        perPage: Int
-    ): Result<List<Hit>> {
-        return try {
-            val searchDto =
-                searchApi.searchImage(BuildConfig.PIXABAY_API_KEY, query, page, perPage)
-            return Result.success(
-                searchDto.hits
-                    .map { it.toHit() }
-            )
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+    ): Flow<PagingData<Hit>> =
+        Pager(
+            config = PagingConfig(pageSize = 10),
+            remoteMediator = SearchImagesRemoteMediator(BuildConfig.PIXABAY_API_KEY, query, searchApi, imagesDatabase),
+            pagingSourceFactory = { imagesDatabase.imageDao.getImages() }
+        ).flow.map { it.map { it.asExternalModel() } }
 }

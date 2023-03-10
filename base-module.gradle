@@ -22,10 +22,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", '"https://pixabay.com/"'
             buildConfigField "String", "PIXABAY_API_KEY", '"YOUR_API_KEY"'
+            buildConfigField "int", "PER_PAGE", '10'
         }
         debug {
             buildConfigField "String", "BASE_URL", '"https://pixabay.com/"'
             buildConfigField "String", "PIXABAY_API_KEY", '"YOUR_API_KEY"'
+            buildConfigField "int", "PER_PAGE", '10'
         }
     }
     compileOptions {

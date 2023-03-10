@@ -3,7 +3,6 @@ package me.mrtkhkm.search_presentation.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import me.mrtkhkm.common.R
 import me.mrtkhkm.search_domain.model.Hit
+import me.mrtkhkm.ui.Loading
 import me.mrtkhkm.ui.LocalSpacing
 
 @Composable
@@ -40,12 +40,13 @@ fun CardItem(hit: Hit) {
         ) {
             SubcomposeAsyncImage(
                 model = hit.webformatURL,
-                contentDescription = hit.id.toString(),
-                contentScale = ContentScale.FillWidth,
+                contentDescription = hit.id,
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier
+                    .height(180.dp)
                     .fillMaxWidth(),
                 loading = {
-                    CircularProgressIndicator()
+                    Loading()
                 }
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))

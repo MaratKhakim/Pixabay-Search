@@ -1,7 +1,7 @@
 package me.mrtkhkm.search_domain.model
 
 data class Hit(
-    val id: Int = 0,
+    val id: String = "",
     val imageUrl: String = "",
     val largeImageUrl: String = "",
     val webformatURL: String = "",

@@ -18,4 +18,7 @@ object Compose {
 
     private const val lifecycleVersion = "2.5.1"
     const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
+
+    private const val version = "1.0.0-alpha16"
+    const val paging = "androidx.paging:paging-compose:$version"
 }

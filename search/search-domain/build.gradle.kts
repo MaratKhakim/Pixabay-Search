@@ -4,4 +4,5 @@ apply {
 
 dependencies {
     "implementation"(Coroutines.coroutines)
+    "implementation"(Compose.paging)
 }

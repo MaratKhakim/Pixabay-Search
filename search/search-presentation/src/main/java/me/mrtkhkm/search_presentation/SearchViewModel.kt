@@ -1,13 +1,17 @@
 package me.mrtkhkm.search_presentation
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.debounce
+import me.mrtkhkm.search_domain.model.Hit
 import me.mrtkhkm.search_domain.use_case.SearchImageUseCase
 import javax.inject.Inject
 
@@ -16,23 +20,20 @@ class SearchViewModel @Inject constructor(
     private val searchImageUseCase: SearchImageUseCase
 ) : ViewModel() {
 
-    var state by mutableStateOf(SearchUiState())
+    var state by mutableStateOf(SearchUiState(query = "fruits"))
         private set
 
     init {
-        search("fruits")
+        search()
     }
 
-    fun search(query: String) {
-        viewModelScope.launch {
-            val result = searchImageUseCase(query, 3, 10)
-            result
-                .onSuccess { list ->
-                state = state.copy(hits = list)
-            }
-                .onFailure {
-                    Log.d("SearchViewModel", it.toString())
-                }
-        }
+    fun onChange(query: String) {
+        state = state.copy(query = query)
     }
+
+    @OptIn(FlowPreview::class)
+    fun search(): Flow<PagingData<Hit>> =
+        searchImageUseCase(state.query)
+            .cachedIn(viewModelScope)
+            .debounce(500)
 }
