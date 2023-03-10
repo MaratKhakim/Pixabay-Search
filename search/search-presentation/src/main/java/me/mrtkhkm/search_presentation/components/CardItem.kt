@@ -3,6 +3,7 @@ package me.mrtkhkm.search_presentation.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,8 +21,12 @@ import me.mrtkhkm.search_domain.model.Hit
 import me.mrtkhkm.ui.Loading
 import me.mrtkhkm.ui.LocalSpacing
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CardItem(hit: Hit) {
+fun CardItem(
+    hit: Hit,
+    onClick: () -> Unit
+) {
     val spacing = LocalSpacing.current
 
     Card(
@@ -30,6 +35,7 @@ fun CardItem(hit: Hit) {
         backgroundColor = Color.Gray.copy(alpha = 0.2f),
         shape = RoundedCornerShape(10.dp),
         elevation = 0.dp,
+        onClick = onClick
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

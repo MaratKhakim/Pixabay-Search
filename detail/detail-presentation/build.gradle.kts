@@ -3,4 +3,6 @@ apply {
 }
 
 dependencies {
+    "implementation"(project(Modules.common))
+    "implementation"(project(Modules.coreUi))
 }

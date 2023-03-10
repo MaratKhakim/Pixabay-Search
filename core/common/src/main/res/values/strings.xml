@@ -3,4 +3,8 @@
     <string name="author">Credits: %s</string>
     <string name="error_message">Something went wrong. Please, retry later!</string>
     <string name="search_placeholder">Search your images here…</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="dialog_title">Curious?</string>
+    <string name="dialog_description">Do you want to see more details?</string>
 </resources>

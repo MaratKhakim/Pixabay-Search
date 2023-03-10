@@ -9,8 +9,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import me.mrtkhkm.search_domain.model.Hit
 import me.mrtkhkm.search_domain.use_case.SearchImageUseCase
 import javax.inject.Inject
@@ -23,6 +23,9 @@ class SearchViewModel @Inject constructor(
     var state by mutableStateOf(SearchUiState(query = "fruits"))
         private set
 
+    var pagingState = MutableStateFlow<PagingData<Hit>>(PagingData.empty())
+        private set
+
     init {
         search()
     }
@@ -31,9 +34,23 @@ class SearchViewModel @Inject constructor(
         state = state.copy(query = query)
     }
 
+    fun onOpendDialog() {
+        state = state.copy(openDialog = true)
+    }
+
+    fun onCloseDialog() {
+        state = state.copy(openDialog = false)
+    }
+
     @OptIn(FlowPreview::class)
-    fun search(): Flow<PagingData<Hit>> =
-        searchImageUseCase(state.query)
-            .cachedIn(viewModelScope)
-            .debounce(500)
+    fun search() {
+        viewModelScope.launch {
+            searchImageUseCase(state.query)
+                .cachedIn(viewModelScope)
+                .debounce(500)
+                .collect {
+                    pagingState.value = it
+                }
+        }
+    }
 }
