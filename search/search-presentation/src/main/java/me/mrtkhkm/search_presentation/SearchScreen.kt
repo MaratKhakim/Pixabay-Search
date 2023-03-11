@@ -17,6 +17,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import me.mrtkhkm.common.R
+import me.mrtkhkm.model.Hit
 import me.mrtkhkm.search_presentation.components.CardItem
 import me.mrtkhkm.search_presentation.components.SearchInput
 import me.mrtkhkm.ui.Loading
@@ -25,7 +26,7 @@ import me.mrtkhkm.ui.LocalSpacing
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
-    onNavigateToDetails: () -> Unit
+    onNavigateToDetails: (hit: Hit) -> Unit
 ) {
     val spacing = LocalSpacing.current
     val state = viewModel.state
@@ -34,7 +35,7 @@ fun SearchScreen(
     if (state.openDialog) {
         Dialog(
             viewModel = viewModel,
-            onNavigateToDetails = onNavigateToDetails
+            onNavigateToDetails = { onNavigateToDetails(state.currentHit) }
         )
     }
 
@@ -63,8 +64,9 @@ fun SearchScreen(
                 hit?.let {
                     CardItem(
                         hit = it,
-                        onClick = {
-                            viewModel.onOpendDialog()
+                        onClick = { selectedHit ->
+                            viewModel.onOpenDialog()
+                            viewModel.onSelectHit(selectedHit)
                         }
                     )
                 }

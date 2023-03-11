@@ -1,8 +1,8 @@
 package me.mrtkhkm.search_data.mapper
 
+import me.mrtkhkm.model.Hit
 import me.mrtkhkm.search_data.local.entity.ImageEntity
 import me.mrtkhkm.search_data.remote.dto.HitDto
-import me.mrtkhkm.search_domain.model.Hit
 
 fun HitDto.asEntity() = ImageEntity(
     id = id,
@@ -15,6 +15,7 @@ fun HitDto.asEntity() = ImageEntity(
     tags = tags,
     comments = comments,
     views = views,
+    userImageURL = userImageURL,
 )
 
 fun ImageEntity.asExternalModel() = Hit(
@@ -28,4 +29,5 @@ fun ImageEntity.asExternalModel() = Hit(
     tags = tags,
     comments = comments,
     views = views,
+    userImageURL = userImageURL,
 )

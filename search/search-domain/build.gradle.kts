@@ -3,6 +3,8 @@ apply {
 }
 
 dependencies {
+    "implementation"(project(Modules.common))
+
     "implementation"(Coroutines.coroutines)
     "implementation"(Compose.paging)
 }

@@ -3,6 +3,7 @@ apply {
 }
 
 dependencies {
+    "implementation"(project(Modules.common))
     "implementation"(project(Modules.searchDomain))
 
     "implementation"(Coroutines.coroutines)

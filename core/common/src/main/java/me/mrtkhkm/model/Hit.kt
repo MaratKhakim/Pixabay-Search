@@ -1,4 +1,4 @@
-package me.mrtkhkm.search_domain.model
+package me.mrtkhkm.model
 
 data class Hit(
     val id: String = "",
@@ -6,6 +6,7 @@ data class Hit(
     val largeImageUrl: String = "",
     val webformatURL: String = "",
     val user: String = "",
+    val userImageURL: String = "",
     val likes: Int = 0,
     val downloads: Int = 0,
     val tags: String = "",
