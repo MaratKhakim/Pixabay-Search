@@ -10,7 +10,7 @@ class SearchImageUseCase(
 ) {
     operator fun invoke(
         query: String,
-    ): Flow<PagingData<me.mrtkhkm.model.Hit>> {
+    ): Flow<PagingData<Hit>> {
         return searchRepository.searchImage(query)
     }
 }

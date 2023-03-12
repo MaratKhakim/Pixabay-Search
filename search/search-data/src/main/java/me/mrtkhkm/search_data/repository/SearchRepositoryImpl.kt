@@ -19,9 +19,9 @@ class SearchRepositoryImpl @Inject constructor(
 ) : SearchRepository {
     override fun searchImage(
         query: String,
-    ): Flow<PagingData<me.mrtkhkm.model.Hit>> =
+    ): Flow<PagingData<Hit>> =
         Pager(
-            config = PagingConfig(pageSize = 10),
+            config = PagingConfig(pageSize = BuildConfig.PER_PAGE),
             remoteMediator = SearchImagesRemoteMediator(BuildConfig.PIXABAY_API_KEY, query, searchApi, imagesDatabase),
             pagingSourceFactory = { imagesDatabase.imageDao.getImages() }
         ).flow.map { it.map { it.asExternalModel() } }

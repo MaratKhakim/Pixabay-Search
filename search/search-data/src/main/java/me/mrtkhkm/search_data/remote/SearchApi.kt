@@ -1,7 +1,6 @@
 package me.mrtkhkm.search_data.remote
 
 import me.mrtkhkm.search_data.remote.dto.SearchDto
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

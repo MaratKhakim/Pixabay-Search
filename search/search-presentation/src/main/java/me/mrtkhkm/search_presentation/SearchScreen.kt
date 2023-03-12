@@ -1,6 +1,7 @@
 package me.mrtkhkm.search_presentation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,6 +10,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,18 +73,13 @@ fun SearchScreen(
                     )
                 }
             }
-            when (images.loadState.append) {
-                is LoadState.Error -> {
-                    item {
-                        Text(text = stringResource(id = R.string.error_message))
-                    }
+            item {
+                ReactToPagingLoadState(images.loadState.refresh) {
+                    images.retry()
                 }
-                is LoadState.Loading -> {
-                    item {
-                        Loading()
-                    }
+                ReactToPagingLoadState(images.loadState.append) {
+                    images.retry()
                 }
-                else -> {}
             }
         }
     }
@@ -123,6 +120,32 @@ fun Dialog(
             }
         }
     )
+}
+
+@Composable
+private fun ReactToPagingLoadState(
+    loadState: LoadState,
+    onRetry: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        when (loadState) {
+            is LoadState.Error -> {
+                Text(text = stringResource(id = R.string.error_message))
+                Button(onClick = onRetry) {
+                    Text(text = stringResource(id = R.string.retry))
+                }
+            }
+            is LoadState.Loading -> {
+                Loading()
+            }
+            else -> {}
+        }
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
